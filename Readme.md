@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Натали Уста](https://up.htmlacademy.ru/javascript/25/user/1807715).
-* Наставник: `Неизвестно`.
+* Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
 
 ---
 
