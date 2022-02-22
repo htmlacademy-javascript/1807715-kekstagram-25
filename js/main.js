@@ -1,4 +1,4 @@
-function getRandomNumber(min,max) {
+function getRandomNumber(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   if (min >= max) {
@@ -8,7 +8,7 @@ function getRandomNumber(min,max) {
 }
 getRandomNumber();
 
-function getStringLength(comment,maxLength) {
+function getStringLength(comment, maxLength) {
   if (comment.length <= maxLength) {
     return true;
   }
