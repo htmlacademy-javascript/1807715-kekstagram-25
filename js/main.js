@@ -1,5 +1,4 @@
-const MAXIMUM_ID = 25;
-const MAXIMUM_URL = 25;
+const MAXIMUM_VALUE = 25;
 const MINIMUM_LIKES = 15;
 const MAXIMUM_LIKES = 200;
 const MAXIMUM_AVATAR = 6;
@@ -60,17 +59,16 @@ const getRandomComment = () => {
   ]
 };
 
-function createCounter(num = 1) {
-  const currentCount = num;
-
-  return function() {
+const createCounter = () => {
+  let currentCount = 1;
+  if(currentCount < MAXIMUM_VALUE) {
     return currentCount++;
-  };
-}
+  }
+};
 
 const createPhotoDescription = () => ({
-  id: createCounter(1, MAXIMUM_ID),
-  url: `photos/${createCounter(1, MAXIMUM_URL)}.jpg`,
+  id: createCounter(),
+  url: `photos/${createCounter()}.jpg`,
   description: 'Вкусный завтрак у моря.',
   likes: getRandomNumber(MINIMUM_LIKES, MAXIMUM_LIKES),
   comments: getRandomComment(),
