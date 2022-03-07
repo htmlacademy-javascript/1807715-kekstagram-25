@@ -1,4 +1,3 @@
-const MAXIMUM_VALUE = 25;
 const MINIMUM_LIKES = 15;
 const MAXIMUM_LIKES = 200;
 const MAXIMUM_AVATAR = 6;
@@ -49,25 +48,18 @@ const getRandomComment = () => {
       avatar: `img/avatar-${getRandomNumber(1, MAXIMUM_AVATAR)}.svg`,
       name: getRandomArrayElement(NAMES),
       message: getRandomArrayElement(MESSAGES),
-    },
-    {
-      id: getRandomNumber(),
-      avatar: `img/avatar-${getRandomNumber(1, MAXIMUM_AVATAR)}.svg`,
-      name: getRandomArrayElement(NAMES),
-      message: getRandomArrayElement(MESSAGES),
     }
-  ]
+  ];
 };
 
+let counter = 1;
+
 const createCounter = () => {
-  let currentCount = 1;
-  if(currentCount < MAXIMUM_VALUE) {
-    return currentCount++;
-  }
+    return counter++;
 };
 
 const createPhotoDescription = () => ({
-  id: createCounter(),
+  id: counter,
   url: `photos/${createCounter()}.jpg`,
   description: 'Вкусный завтрак у моря.',
   likes: getRandomNumber(MINIMUM_LIKES, MAXIMUM_LIKES),
