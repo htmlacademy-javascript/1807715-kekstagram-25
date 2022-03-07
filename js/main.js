@@ -1,9 +1,9 @@
-function getStringLength(comment, maxLength) {
-  if (comment.length <= maxLength) {
-    return true;
-  }
-}
-getStringLength();
+const MAXIMUM_ID = 25;
+const MAXIMUM_URL = 25;
+const MINIMUM_LIKES = 15;
+const MAXIMUM_LIKES = 200;
+const MAXIMUM_AVATAR = 6;
+const SIMILAR_PHOTO_DESCRIPTION = 25;
 
 const NAMES = [
   'Tom',
@@ -19,14 +19,19 @@ const NAMES = [
 
 const MESSAGES = [
   'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const SIMILAR_PHOTO_DESCRIPTION = 25;
-const MAXIMUM_ID = 25;
-const MAXIMUM_URL = 25;
-const MAXIMUM_LIKES = 200;
-const MAXIMUM_AVATAR = 6;
+function getStringLength(comment, maxLength) {
+  if (comment.length <= maxLength) {
+    return true;
+  }
+}
+getStringLength();
 
 function getRandomNumber(min, max) {
   min = Math.ceil(min);
@@ -38,13 +43,8 @@ function getRandomNumber(min, max) {
 }
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
-
-const createPhotoDescription = () => ({
-  id: getRandomNumber(1, MAXIMUM_ID),
-  url: `photos/${getRandomNumber(1, MAXIMUM_URL)}.jpg`,
-  description: 'Вкусный завтрак у моря.',
-  likes: getRandomNumber(15, MAXIMUM_LIKES),
-  comments: [
+const getRandomComment = () => {
+  return [
     {
       id: getRandomNumber(),
       avatar: `img/avatar-${getRandomNumber(1, MAXIMUM_AVATAR)}.svg`,
@@ -58,9 +58,22 @@ const createPhotoDescription = () => ({
       message: getRandomArrayElement(MESSAGES),
     }
   ]
+};
+
+function createCounter(num = 1) {
+  const currentCount = num;
+
+  return function() {
+    return currentCount++;
+  };
+}
+
+const createPhotoDescription = () => ({
+  id: createCounter(1, MAXIMUM_ID),
+  url: `photos/${createCounter(1, MAXIMUM_URL)}.jpg`,
+  description: 'Вкусный завтрак у моря.',
+  likes: getRandomNumber(MINIMUM_LIKES, MAXIMUM_LIKES),
+  comments: getRandomComment(),
 });
 
 const similarPhotoDescription = Array.from({length: SIMILAR_PHOTO_DESCRIPTION}, createPhotoDescription);
-
-createPhotoDescription();
-
