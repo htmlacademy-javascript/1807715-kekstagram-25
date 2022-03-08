@@ -55,11 +55,11 @@ const getRandomComment = () => {
 let counter = 1;
 
 const createPhotoDescription = () => ({
-  id: counter++,
+  id: counter,
   url: `photos/${counter++}.jpg`,
   description: 'Вкусный завтрак у моря.',
   likes: getRandomNumber(MINIMUM_LIKES, MAXIMUM_LIKES),
-  comments: Array.from({ length: Math.floor(Math.random()) }, getRandomComment),
+  comments: Array.from({ length: getRandomNumber(1,5) }, getRandomComment),
 });
 
 const similarPhotoDescription = Array.from({length: SIMILAR_PHOTO_DESCRIPTION}, createPhotoDescription);
