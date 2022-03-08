@@ -58,7 +58,8 @@ const createPhotoDescription = () => ({
   url: `photos/${counter++}.jpg`,
   description: 'Вкусный завтрак у моря.',
   likes: getRandomNumber(MINIMUM_LIKES, MAXIMUM_LIKES),
-  comments: Array.from({ length: getRandomNumber(1,MAXIMUM_ELEMENTS) }, getRandomComment),
+  comments: Array.from({ length: getRandomNumber(1, MAXIMUM_ELEMENTS) }, getRandomComment),
 });
 
 const similarPhotoDescription = Array.from({length: SIMILAR_PHOTO_DESCRIPTION}, createPhotoDescription);
+
