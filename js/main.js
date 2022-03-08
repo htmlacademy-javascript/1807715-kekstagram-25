@@ -1,6 +1,8 @@
 const MINIMUM_LIKES = 15;
 const MAXIMUM_LIKES = 200;
+const MAXIMUM_ID = 300;
 const MAXIMUM_AVATAR = 6;
+const MAXIMUM_ELEMENTS = 5;
 const SIMILAR_PHOTO_DESCRIPTION = 25;
 
 const NAMES = [
@@ -29,7 +31,6 @@ function getStringLength(comment, maxLength) {
     return true;
   }
 }
-getStringLength();
 
 function getRandomNumber(min, max) {
   min = Math.ceil(min);
@@ -42,14 +43,12 @@ function getRandomNumber(min, max) {
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 const getRandomComment = () => {
-  return [
-    {
-      id: getRandomNumber(),
-      avatar: `img/avatar-${getRandomNumber(1, MAXIMUM_AVATAR)}.svg`,
-      name: getRandomArrayElement(NAMES),
-      message: getRandomArrayElement(MESSAGES),
-    }
-  ];
+  return {
+    id: getRandomNumber(1, MAXIMUM_ID),
+    avatar: `img/avatar-${getRandomNumber(1, MAXIMUM_AVATAR)}.svg`,
+    name: getRandomArrayElement(NAMES),
+    message: getRandomArrayElement(MESSAGES),
+  }
 };
 
 let counter = 1;
@@ -59,7 +58,7 @@ const createPhotoDescription = () => ({
   url: `photos/${counter++}.jpg`,
   description: 'Вкусный завтрак у моря.',
   likes: getRandomNumber(MINIMUM_LIKES, MAXIMUM_LIKES),
-  comments: Array.from({ length: getRandomNumber(1,5) }, getRandomComment),
+  comments: Array.from({ length: getRandomNumber(1,MAXIMUM_ELEMENTS) }, getRandomComment),
 });
 
 const similarPhotoDescription = Array.from({length: SIMILAR_PHOTO_DESCRIPTION}, createPhotoDescription);
