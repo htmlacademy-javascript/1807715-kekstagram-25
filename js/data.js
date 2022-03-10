@@ -26,14 +26,12 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const getRandomComment = () => {
-  return {
-    id: getRandomNumber(1, MAXIMUM_ID),
-    avatar: `img/avatar-${getRandomNumber(1, MAXIMUM_AVATAR)}.svg`,
-    name: getRandomArrayElement(NAMES),
-    message: getRandomArrayElement(MESSAGES),
-  };
-};
+const getRandomComment = () => ({
+  id: getRandomNumber(1, MAXIMUM_ID),
+  avatar: `img/avatar-${getRandomNumber(1, MAXIMUM_AVATAR)}.svg`,
+  name: getRandomArrayElement(NAMES),
+  message: getRandomArrayElement(MESSAGES),
+});
 
 let counter = 1;
 
