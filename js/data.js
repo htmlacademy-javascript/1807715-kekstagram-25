@@ -5,6 +5,7 @@ const MAXIMUM_LIKES = 200;
 const MAXIMUM_ID = 300;
 const MAXIMUM_AVATAR = 6;
 const MAXIMUM_ELEMENTS = 5;
+const SIMILAR_PHOTO_DESCRIPTION = 25;
 const NAMES = [
   'Tom',
   'George',
@@ -43,4 +44,7 @@ const createPhotoDescription = () => ({
   comments: Array.from({ length: getRandomNumber(1, MAXIMUM_ELEMENTS) }, getRandomComment),
 });
 
-export {createPhotoDescription};
+const similarPhotoDescription = Array.from({length: SIMILAR_PHOTO_DESCRIPTION}, createPhotoDescription);
+
+export {similarPhotoDescription};
+
