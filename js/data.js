@@ -47,4 +47,3 @@ const createPhotoDescription = () => ({
 const similarPhotoDescription = Array.from({length: SIMILAR_PHOTO_DESCRIPTION}, createPhotoDescription);
 
 export {similarPhotoDescription};
-
