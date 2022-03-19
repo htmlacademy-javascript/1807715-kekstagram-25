@@ -1,7 +1,7 @@
 import {createSimilarPicture} from './photo.js';
 
 const userDialog = document.querySelector('.big-picture');
-//userDialog.classList.remove('hidden');
+userDialog.classList.remove('hidden');
 
 const userDialogContent = document.querySelector('.big-picture__preview').content;
 const similarUserDialog = createSimilarPicture();
