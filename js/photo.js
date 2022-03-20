@@ -13,5 +13,3 @@ const createSimilarPicture = ({url, likes, comments}) => {
 };
 similarPhotoDescription.forEach((similarPicture) => similarListFragment.append(createSimilarPicture(similarPicture)));
 similarListPictures.append(similarListFragment);
-
-export {createSimilarPicture};
