@@ -17,7 +17,9 @@ const updateBigPicture = ({url, likes, comments, description}) => {
   popup.querySelector('.social__caption').textContent = description;
 };
 
-openPopup.addEventListener('click', () => {
-  //const getElement = evt.target.getAttribute();
+openPopup.addEventListener('click', (evt) => {
+  const getElement = evt.target.getAttribute('src');
+  const dataObject = similarPhotoDescription.find((o) => o.url === getElement);
+  updateBigPicture(dataObject);
   popup.classList.remove('hidden');
 });
