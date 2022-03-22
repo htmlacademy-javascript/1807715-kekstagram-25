@@ -3,27 +3,14 @@ import {similarPhotoDescription} from './data.js';
 
 const popup = document.querySelector('.big-picture');
 const openPopup = document.querySelector('.pictures');
-const closePopup = popup.querySelector('.big-picture__cancel');
-
-closePopup.addEventListener('click', () => {
-  popup.classList.add('hidden');
-});
-
-const updateBigPicture = ({url, likes, comments, description}) => {
-  popup.querySelector('.big-picture__img img').src = url;
-  popup.querySelector('.likes-count').textContent = likes;
-  popup.querySelector('.comments-count').textContent = comments.length;
-  popup.querySelector('.social__caption').textContent = description;
-  popup.querySelector('.comments-count').textContent = comments.length;
-  addComments();
-};
+const closePopup = document.querySelector('.big-picture__cancel');
 
 const addComments = ({comments}) => {
   const commentsList = document.querySelector('.social__comments');
   commentsList.innerHTML = '';
-  let str = ``;
+  let str = '';
   for (let i = 0; i < comments.length; i++) {
-    str += `<li class="social__comments">
+    str += `<li class="social__comment">
       <img class="social__picture"
       src="${comments[i].avatar}"
       alt="${comments[i].name}"
@@ -33,11 +20,26 @@ const addComments = ({comments}) => {
     </li>`;
   }
   commentsList.innerHTML = str;
-}
+};
+
+const updateBigPicture = (clickedElement) => {
+  document.body.classList.add('modal-open');
+  popup.querySelector('.big-picture__img img').src = clickedElement.url;
+  popup.querySelector('.likes-count').textContent = clickedElement.likes;
+  popup.querySelector('.social__caption').textContent = clickedElement.description;
+  popup.querySelector('.comments-count').textContent = clickedElement.comments.length;
+  addComments(clickedElement);
+};
 
 openPopup.addEventListener('click', (evt) => {
-  const getObject = evt.target.getAttribute('src');
-  const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
-  updateBigPicture(dataObject);
-  popup.classList.remove('hidden');
+  if(evt.target.parentNode.matches('.picture')){
+    const getObject = evt.target.getAttribute('src');
+    const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
+    updateBigPicture(dataObject);
+    document.body.classList.add('modal-open');
+    popup.classList.remove('hidden');
+    closePopup.addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
+  }
 });
