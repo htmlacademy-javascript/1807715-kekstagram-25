@@ -48,7 +48,7 @@ openPopup.addEventListener('click', (evt) => {
 });
 
 document.addEventListener('keydown', (evt) => {
-  if(evt.keyCode === 27) {
+  if(evt.code === 'Escape') {
     popup.classList.add('hidden');
   }
 });
