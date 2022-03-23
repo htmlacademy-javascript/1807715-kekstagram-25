@@ -38,8 +38,17 @@ openPopup.addEventListener('click', (evt) => {
     updateBigPicture(dataObject);
     document.body.classList.add('modal-open');
     popup.classList.remove('hidden');
+    popup.querySelector('.social__comment-count').classList.add('hidden');
+    popup.querySelector('.comments-loader').classList.add('hidden');
     closePopup.addEventListener('click', () => {
+      document.body.classList.remove('modal-open');
       popup.classList.add('hidden');
     });
+  }
+});
+
+document.addEventListener('keydown', (evt) => {
+  if(evt.keyCode === 27) {
+    popup.classList.add('hidden');
   }
 });
