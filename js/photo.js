@@ -11,5 +11,5 @@ const createSimilarPicture = ({url, likes, comments}) => {
   similarPicture.querySelector('.picture__comments').textContent = comments.length;
   return similarPicture;
 };
-similarPhotoDescription.forEach((similarPicture) => similarListFragment.append(createSimilarPicture(similarPicture)));
-similarListPictures.append(similarListFragment);
+
+export {similarPhotoDescription, similarListFragment, createSimilarPicture, similarListPictures};

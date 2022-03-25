@@ -47,9 +47,9 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-function addOnClickHandler(el) {
-  el.addEventListener('click', (evt) => {
-    const getObject = evt.target.getAttribute('src');
+function attachClickHandler(preview) {
+  preview.addEventListener('click', (evt) => {
+    const getObject = evt.target.src;
     const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
     updateBigPicture(dataObject);
     document.body.classList.add('modal-open');
@@ -66,4 +66,4 @@ closePopup.addEventListener('click', () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 });
 
-export {addOnClickHandler};
+export {attachClickHandler};

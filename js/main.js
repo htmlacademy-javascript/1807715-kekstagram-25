@@ -1,5 +1,8 @@
-import './photo.js';
-import {addOnClickHandler} from './big-photo.js';
+import {similarPhotoDescription, similarListFragment, createSimilarPicture, similarListPictures} from './photo.js';
 
-document.querySelectorAll('.picture').forEach((el) => addOnClickHandler(el));
+similarPhotoDescription.forEach((similarPicture) => similarListFragment.append(createSimilarPicture(similarPicture)));
+similarListPictures.append(similarListFragment);
 
+import {attachClickHandler} from './big-photo.js';
+
+document.querySelectorAll('.picture').forEach((preview) => attachClickHandler(preview));
