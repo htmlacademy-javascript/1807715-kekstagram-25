@@ -6,21 +6,23 @@ const popup = document.querySelector('.big-picture');
 const openPopup = document.querySelector('.pictures');
 const closePopup = document.querySelector('.big-picture__cancel');
 
-const addComments = ({comments}) => {
+const addComments = ({ comments }) => {
   const commentsList = document.querySelector('.social__comments');
   commentsList.innerHTML = '';
-  let str = '';
-  for (let i = 0; i < comments.length; i++) {
-    str += `<li class="social__comment">
-      <img class="social__picture"
-      src="${comments[i].avatar}"
-      alt="${comments[i].name}"
-      width="35"
-      height="35">
-      <p class="social__text">${comments[i].message}</p>
-    </li>`;
+  if (comments.length > 0) {
+    const getCommentsList = comments.reduce((prev, curr) => (
+      `${prev
+      }<li class="social__comment">
+            <img class="social__picture"
+            src="${curr.avatar}"
+            alt="${curr.name}"
+            width="35"
+            height="35">
+            <p class="social__text">${curr.message}</p>
+          </li>`
+    ), '');
+    commentsList.innerHTML = getCommentsList;
   }
-  commentsList.innerHTML = str;
 };
 
 const updateBigPicture = (clickedElement) => {
@@ -32,7 +34,7 @@ const updateBigPicture = (clickedElement) => {
   addComments(clickedElement);
 };
 
-const closeUserModal = () => {
+const closeModal = () => {
   document.body.classList.remove('modal-open');
   popup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
@@ -41,24 +43,27 @@ const closeUserModal = () => {
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeUserModal();
+    closeModal();
   }
 };
 
-document.querySelectorAll('.picture').forEach((el) => el.addEventListener('click', (evt) => {
-  const getObject = evt.target.getAttribute('src');
-  const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
-  updateBigPicture(dataObject);
-  document.body.classList.add('modal-open');
-  popup.classList.remove('hidden');
-  popup.querySelector('.social__comment-count').classList.add('hidden');
-  popup.querySelector('.comments-loader').classList.add('hidden');
-  document.addEventListener('keydown', onPopupEscKeydown);
-  closePopup.addEventListener('click', () => {
-    document.body.classList.remove('modal-open');
-    popup.classList.add('hidden');
-    document.removeEventListener('keydown', onPopupEscKeydown);
-  });
-}));
+document.querySelectorAll('.picture').forEach((el) => addOnCLickHandler(el));
 
-export {popup, openPopup, closePopup, updateBigPicture, similarPhotoDescription};
+function addOnCLickHandler(el) {
+  el.addEventListener('click', (evt) => {
+    const getObject = evt.target.getAttribute('src');
+    const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
+    updateBigPicture(dataObject);
+    document.body.classList.add('modal-open');
+    popup.classList.remove('hidden');
+    popup.querySelector('.social__comment-count').classList.add('hidden');
+    popup.querySelector('.comments-loader').classList.add('hidden');
+    document.addEventListener('keydown', onPopupEscKeydown);
+  });
+}
+
+closePopup.addEventListener('click', () => {
+  document.body.classList.remove('modal-open');
+  popup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscKeydown);
+});
