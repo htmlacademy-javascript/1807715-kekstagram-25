@@ -47,9 +47,7 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-document.querySelectorAll('.picture').forEach((el) => addOnCLickHandler(el));
-
-function addOnCLickHandler(el) {
+function addOnClickHandler(el) {
   el.addEventListener('click', (evt) => {
     const getObject = evt.target.getAttribute('src');
     const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
@@ -67,3 +65,5 @@ closePopup.addEventListener('click', () => {
   popup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
 });
+
+export {addOnClickHandler};
