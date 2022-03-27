@@ -3,7 +3,7 @@ import {similarPhotoDescription} from './data.js';
 import {isEscapeKey} from './util.js';
 
 const popup = document.querySelector('.big-picture');
-//const openPopup = document.querySelector('.pictures');
+const openPopup = document.querySelector('.pictures');
 const closePopup = document.querySelector('.big-picture__cancel');
 
 const addComments = ({ comments }) => {
