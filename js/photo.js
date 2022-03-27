@@ -1,5 +1,3 @@
-import {similarPhotoDescription} from './data.js';
-
 const similarPicturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const createSimilarPicture = ({url, likes, comments}) => {
@@ -10,4 +8,4 @@ const createSimilarPicture = ({url, likes, comments}) => {
   return similarPicture;
 };
 
-export {similarPhotoDescription, createSimilarPicture};
+export {createSimilarPicture};

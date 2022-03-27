@@ -1,4 +1,5 @@
-import {similarPhotoDescription, createSimilarPicture} from './photo.js';
+import {similarPhotoDescription} from './data.js';
+import {createSimilarPicture} from './photo.js';
 import {attachClickHandler} from './big-photo.js';
 
 const similarListPictures = document.querySelector('.pictures');
