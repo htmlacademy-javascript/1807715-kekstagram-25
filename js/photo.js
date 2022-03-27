@@ -1,8 +1,6 @@
 import {similarPhotoDescription} from './data.js';
 
-const similarListPictures = document.querySelector('.pictures');
 const similarPicturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarListFragment = document.createDocumentFragment();
 
 const createSimilarPicture = ({url, likes, comments}) => {
   const similarPicture = similarPicturesTemplate.cloneNode(true);
@@ -12,4 +10,4 @@ const createSimilarPicture = ({url, likes, comments}) => {
   return similarPicture;
 };
 
-export {similarPhotoDescription, similarListFragment, createSimilarPicture, similarListPictures};
+export {similarPhotoDescription, createSimilarPicture};

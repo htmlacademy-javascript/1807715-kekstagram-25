@@ -3,7 +3,7 @@ import {similarPhotoDescription} from './data.js';
 import {isEscapeKey} from './util.js';
 
 const popup = document.querySelector('.big-picture');
-const openPopup = document.querySelector('.pictures');
+//const openPopup = document.querySelector('.pictures');
 const closePopup = document.querySelector('.big-picture__cancel');
 
 const addComments = ({ comments }) => {
@@ -48,8 +48,8 @@ const onPopupEscKeydown = (evt) => {
 };
 
 function attachClickHandler(preview) {
-  preview.addEventListener('click', (evt) => {
-    const getObject = evt.target.src;
+  preview.addEventListener('click', () => {
+    const getObject = preview.querySelector('img').getAttribute('src');
     const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
     updateBigPicture(dataObject);
     document.body.classList.add('modal-open');

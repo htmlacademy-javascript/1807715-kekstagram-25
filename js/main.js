@@ -1,8 +1,10 @@
-import {similarPhotoDescription, similarListFragment, createSimilarPicture, similarListPictures} from './photo.js';
+import {similarPhotoDescription, createSimilarPicture} from './photo.js';
+import {attachClickHandler} from './big-photo.js';
+
+const similarListPictures = document.querySelector('.pictures');
+const similarListFragment = document.createDocumentFragment();
 
 similarPhotoDescription.forEach((similarPicture) => similarListFragment.append(createSimilarPicture(similarPicture)));
 similarListPictures.append(similarListFragment);
-
-import {attachClickHandler} from './big-photo.js';
 
 document.querySelectorAll('.picture').forEach((preview) => attachClickHandler(preview));
