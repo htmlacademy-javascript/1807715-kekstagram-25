@@ -66,4 +66,4 @@ closePopup.addEventListener('click', () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 });
 
-export {attachClickHandler};
+export {attachClickHandler, onPopupEscKeydown};

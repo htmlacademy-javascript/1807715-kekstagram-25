@@ -1,28 +1,18 @@
-const form = document.querySelector('.img-upload__form');
-const hashtags = form.querySelector('.text__hashtags');
-const pristine = new Pristine(form);
+import {onPopupEscKeydown} from './big-photo.js';
+import {isEscapeKey} from './util.js';
 
-function validateHashtag(hashtags) {
-  const hashtagFormat = /^#[A-Za-zA-Яa-яЁё0-9]{1,19}$\s/;
-  if(hashtags.value.match(hashtagFormat))
-  {
-    return true;
-  }
-  hashtags.focus();
-  return ('Невалидный формат');
-}
+const uploadPhotoForm = document.querySelector('#upload-file');
+const openForm = document.querySelector('.img-upload__overlay');
+const closeForm = document.querySelector('#upload-cancel');
 
-pristine.addValidator(form.querySelector('.text__hashtags'), validateHashtag);
+uploadPhotoForm.addEventListener('change', () => {
+  document.body.classList.add('modal-open');
+  openForm.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscKeydown);
+});
 
-function validateComments (value) {
-  return value.length <= 140;
-}
-pristine.addValidator(form.querySelector('.social__footer-text'),
-  validateComments,
-  'Максимальная длина комментария 140 символов',
-);
-
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+closeForm.addEventListener('click', () => {
+  document.body.classList.remove('modal-open');
+  openForm.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscKeydown);
 });
