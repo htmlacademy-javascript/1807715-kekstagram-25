@@ -1,18 +1,32 @@
-import {onPopupEscKeydown} from './big-photo.js';
 import {isEscapeKey} from './util.js';
 
 const uploadPhotoForm = document.querySelector('#upload-file');
 const openForm = document.querySelector('.img-upload__overlay');
 const closeForm = document.querySelector('#upload-cancel');
 
-uploadPhotoForm.addEventListener('change', () => {
+const onFormKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeFormModal();
+  }
+};
+
+function openFormModal () {
   document.body.classList.add('modal-open');
   openForm.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('keydown', onFormKeydown);
+}
+
+function closeFormModal () {
+  document.body.classList.remove('modal-open');
+  openForm.classList.add('hidden');
+  document.removeEventListener('keydown', onFormKeydown);
+}
+
+uploadPhotoForm.addEventListener('change', () => {
+  openFormModal();
 });
 
 closeForm.addEventListener('click', () => {
-  document.body.classList.remove('modal-open');
-  openForm.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  closeFormModal();
 });
