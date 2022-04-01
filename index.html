@@ -36,7 +36,7 @@
             action="https://25.javascript.pages.academy/kekstagram" autocomplete="off">
 
             <!-- Изначальное состояние поля для загрузки изображения -->
-            <fieldset class="img-upload__start">
+            <fieldset class="img-upload__start img-upload__form--element">
               <input type="file" id="upload-file" class="img-upload__input  visually-hidden" name="filename" required
                 data-pristine-required-message="Загрузите изображение">
               <label for="upload-file" class="img-upload__label  img-upload__control">Загрузить</label>
@@ -125,8 +125,10 @@
                 </fieldset>
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
-                <fieldset class="img-upload__text text">
-                  <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" minlength="2" maxlength="20">
+                <fieldset class="img-upload__text text img-upload__form--element">
+                  <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" minlength="2" maxlength="20"
+                    data-pristine-minlength-message="Минимальная длина 2 символа"
+                    data-pristine-maxlength-message="Максимальная длина 20 символов">
                   <textarea class="text__description" name="description" maxlength="140" placeholder="Ваш комментарий..."></textarea>
                 </fieldset>
 

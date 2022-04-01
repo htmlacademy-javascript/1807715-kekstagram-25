@@ -6,7 +6,11 @@ const openForm = document.querySelector('.img-upload__overlay');
 const closeForm = document.querySelector('#upload-cancel');
 const hashtags = uploadPhotoForm.querySelector('.text__hashtags');
 
-const pristine = new Pristine(form);
+const pristine = new Pristine(form, {
+  classTo: 'img-upload__form--element',
+  errorTextParent: 'img-upload__form--element',
+  errorTextClass: 'img-upload__form--error-text',
+});
 
 const onFormKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -53,14 +57,23 @@ closeForm.addEventListener('click', () => {
   closeFormModal();
 });
 
+pristine.addValidator(
+  uploadPhotoForm,
+  validateHashtag,
+  'Невалидный формат'
+);
+
+pristine.addValidator(
+  uploadPhotoForm,
+  validateComments,
+  'Максимальная длина комментария 140 символов'
+);
+
 uploadPhotoForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
-
   const isValid = pristine.validate();
   if (isValid) {
     return true;
   }
   return('Форма невалидна');
 });
-
