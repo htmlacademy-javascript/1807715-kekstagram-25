@@ -43,7 +43,7 @@
             </fieldset>
 
             <!-- Форма редактирования изображения -->
-            <div class="img-upload__overlay">
+            <div class="img-upload__overlay hidden">
               <div class="img-upload__wrapper">
                 <div class="img-upload__preview-container">
 
@@ -125,10 +125,8 @@
                 </fieldset>
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
-                <fieldset class="img-upload__text text img-upload__form--element">
-                  <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" minlength="2" maxlength="20"
-                    data-pristine-minlength-message="Минимальная длина 2 символа"
-                    data-pristine-maxlength-message="Максимальная длина 20 символов">
+                <fieldset class="img-upload__text text">
+                  <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" required>
                   <textarea class="text__description" name="description" maxlength="140" placeholder="Ваш комментарий..."></textarea>
                 </fieldset>
 
