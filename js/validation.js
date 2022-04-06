@@ -1,4 +1,3 @@
-import {uploadPhotoForm} from './form.js';
 import {isEscapeKey} from './util.js';
 
 const form = document.querySelector('.img-upload__form');
@@ -37,16 +36,14 @@ pristine.addValidator(
 );
 
 function validateComments() {
-  commentsField.addEventListener('input', () => {
+  commentsField.addEventListener('change', () => {
     const commentsValues = commentsField.value;
-    if(commentsValues.length > MAX_COMMENT_SYMBOLS) {
-      return false;
-    }
+    return commentsValues.length > MAX_COMMENT_SYMBOLS;
   });
 }
 
 pristine.addValidator(
-  uploadPhotoForm,
+  commentsField,
   validateComments,
   'Количество символов не должно превышать 140',
 );
@@ -67,5 +64,5 @@ form.addEventListener('submit', (evt) => {
   if (isValid) {
     return true;
   }
-  return('Форма невалидна');
+  return false;
 });

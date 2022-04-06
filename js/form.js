@@ -30,5 +30,3 @@ uploadPhotoForm.addEventListener('change', () => {
 closeForm.addEventListener('click', () => {
   closeFormModal();
 });
-
-export {uploadPhotoForm};

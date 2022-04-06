@@ -1,6 +1,7 @@
 import {similarPhotoDescription} from './data.js';
 import {createSimilarPicture} from './photo.js';
 import {attachClickHandler} from './big-photo.js';
+import './form.js';
 import './validation.js';
 
 const similarListPictures = document.querySelector('.pictures');
