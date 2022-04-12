@@ -6,7 +6,7 @@ const commentsField = document.querySelector('.text__description');
 const MIN_LENGTH = 2;
 const MAX_HASHTAGS = 5;
 const MAX_LENGTH = 20;
-const HASHTAGS_FORMAT = /^#[a-zA-Z0-9a-яA-Я]{1,19}$/;
+const HASHTAGS_FORMAT = /^#[a-zA-Z0-9a-яA-Я]{2,19}$/;
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -27,8 +27,10 @@ const errorMessagesData = {
 
 function validateHashtag() {
   let hashtagsValues = hashtags.value.toLowerCase();
+  if (hashtagsValues === '') {
+    return true;
+  }
   hashtagsValues = hashtagsValues.split(' ');
-
   for (const hashtag of hashtagsValues) {
     if (hashtagsValues.length > MAX_HASHTAGS) {
       message = 'MAX_HASHTAG';
@@ -50,7 +52,7 @@ function validateHashtag() {
       message = 'DOUBLE_HASHTAG';
       return false;
     }
-    if (hashtag.match(HASHTAGS_FORMAT)) {
+    if (!hashtag.match(HASHTAGS_FORMAT)) {
       message = 'INVALID_HASHTAG';
       return false;
     }
@@ -77,8 +79,9 @@ hashtags.addEventListener('keydown', onFocusKeydown);
 commentsField.addEventListener('keydown', onFocusKeydown);
 
 form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
   const isValid = pristine.validate();
-  showMessage(message);
+  if (!isValid) {
+    evt.preventDefault();
+  }
   return isValid;
 });
