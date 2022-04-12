@@ -6,7 +6,7 @@ const commentsField = document.querySelector('.text__description');
 const MIN_LENGTH = 2;
 const MAX_HASHTAGS = 5;
 const MAX_LENGTH = 20;
-//const HASHTAGS_FORMAT = /^#[a-zA-Z0-9a-яA-Я]{1,19}$/;
+const HASHTAGS_FORMAT = /^#[a-zA-Z0-9a-яA-Я]{1,19}$/;
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -34,10 +34,6 @@ function validateHashtag() {
       message = 'MAX_HASHTAG';
       return false;
     }
-    /*if (hashtag.match(HASHTAGS_FORMAT)) {
-      message = 'INVALID_HASHTAG';
-      return false;
-    }*/
     if (hashtag[0] !== '#') {
       message = 'START_WITH_HASH';
       return false;
@@ -52,6 +48,10 @@ function validateHashtag() {
     }
     if (hashtagsValues.indexOf(hashtag) !== hashtagsValues.lastIndexOf(hashtag)) {
       message = 'DOUBLE_HASHTAG';
+      return false;
+    }
+    if (hashtag.match(HASHTAGS_FORMAT)) {
+      message = 'INVALID_HASHTAG';
       return false;
     }
   }
