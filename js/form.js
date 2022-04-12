@@ -18,6 +18,7 @@ function openFormModal () {
 }
 
 function closeFormModal () {
+  uploadPhotoForm.value = '';
   document.body.classList.remove('modal-open');
   openForm.classList.add('hidden');
   document.removeEventListener('keydown', onFormKeydown);

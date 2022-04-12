@@ -683,6 +683,10 @@ main {
   border-radius: 5px;
 }
 
+.new__comments {
+  border: none;
+}
+
 .text__description {
   width: 450px;
   height: 100px;
