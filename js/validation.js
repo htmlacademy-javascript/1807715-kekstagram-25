@@ -6,13 +6,13 @@ const commentsField = document.querySelector('.text__description');
 const MIN_LENGTH = 2;
 const MAX_HASHTAGS = 5;
 const MAX_LENGTH = 20;
-const HASHTAGS_FORMAT = /^#[A-Za-zA-Яa-яЁё0-9]{1,19}$/;
+//const HASHTAGS_FORMAT = /^#[a-zA-Z0-9a-яA-Я]{1,19}$/;
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
   errorTextClass: 'form__error',
-}, false);
+});
 
 let message = '';
 
@@ -29,39 +29,41 @@ function validateHashtag() {
   let hashtagsValues = hashtags.value.toLowerCase();
   hashtagsValues = hashtagsValues.split(' ');
 
-  for (let i = 0; i < hashtags.length; i++) {
+  for (const hashtag of hashtagsValues) {
     if (hashtagsValues.length > MAX_HASHTAGS) {
-      message = errorMessagesData.MAX_HASHTAG;
+      message = 'MAX_HASHTAG';
       return false;
     }
-    if (hashtagsValues[i] !== HASHTAGS_FORMAT) {
-      message = errorMessagesData.INVALID_HASHTAG;
+    /*if (hashtag.match(HASHTAGS_FORMAT)) {
+      message = 'INVALID_HASHTAG';
       return false;
-    }
-    if (hashtagsValues[i] !== '#') {
-      message = errorMessagesData.START_WITH_HASH;
+    }*/
+    if (hashtag[0] !== '#') {
+      message = 'START_WITH_HASH';
       return false;
     }
     if (hashtagsValues.length < MIN_LENGTH && hashtagsValues.length > MAX_LENGTH) {
-      message = errorMessagesData.MIN_MAX_HASHTAG;
+      message = 'MIN_MAX_HASHTAG';
       return false;
     }
-    if (hashtagsValues[i] === '#') {
-      message = errorMessagesData.NOT_ONLY_HASH;
+    if (hashtag === '#') {
+      message = 'NOT_ONLY_HASH';
       return false;
     }
-    if (hashtagsValues.indexOf(hashtagsValues) === hashtagsValues.lastIndexOf(hashtagsValues)) {
-      message = errorMessagesData.DOUBLE_HASHTAG;
+    if (hashtagsValues.indexOf(hashtag) !== hashtagsValues.lastIndexOf(hashtag)) {
+      message = 'DOUBLE_HASHTAG';
       return false;
     }
-    return true;
   }
+  return true;
 }
+
+const showMessage = () => errorMessagesData[message];
 
 pristine.addValidator(
   hashtags,
   validateHashtag,
-  message,
+  showMessage,
 );
 
 const onFocusKeydown = (evt) => {
@@ -77,8 +79,6 @@ commentsField.addEventListener('keydown', onFocusKeydown);
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
-  if (isValid) {
-    return true;
-  }
-  return false;
+  showMessage(message);
+  return isValid;
 });

@@ -31,12 +31,13 @@ const addComments = ({ comments }) => {
 };
 
 const onShowMoreButtonClick = () => {
-  const commentsBoxlength = document.querySelector('.social__comment').childNodes.length;
   const hiddenComments = document.querySelectorAll('.social__comment.hidden');
-  for (let i = 0; i <= commentsBoxlength; i++) {
+  const hiddenCommentsList = hiddenComments.length;
+  for (let i = 0; i < hiddenCommentsList; i++) {
     hiddenComments[i].classList.remove('hidden');
     uploadCommentsButton.classList.add('hidden');
   }
+  loadedComments.textContent = +loadedComments.textContent + hiddenCommentsList;
 };
 
 const updateBigPicture = (clickedElement) => {
