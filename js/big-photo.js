@@ -58,7 +58,6 @@ const updateBigPicture = (clickedElement) => {
 };
 
 const closeModal = () => {
-  uploadPhotoForm.value = '';
   document.body.classList.remove('modal-open');
   popup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
