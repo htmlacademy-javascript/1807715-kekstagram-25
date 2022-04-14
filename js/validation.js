@@ -85,3 +85,5 @@ form.addEventListener('submit', (evt) => {
   }
   return isValid;
 });
+
+export {form, pristine};
