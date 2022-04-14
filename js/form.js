@@ -15,7 +15,6 @@ const onFormKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeFormModal();
-    clearForm();
   }
 };
 
