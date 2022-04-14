@@ -3,8 +3,9 @@ import {similarPhotoDescription} from './data.js';
 import {isEscapeKey} from './util.js';
 
 const popup = document.querySelector('.big-picture');
-const openPopup = document.querySelector('.pictures');
 const closePopup = document.querySelector('.big-picture__cancel');
+const loadedComments = document.querySelector('.comments-loaded');
+const uploadCommentsButton = document.querySelector('.comments-loader');
 
 const addComments = ({ comments }) => {
   const commentsList = document.querySelector('.social__comments');
@@ -22,7 +23,21 @@ const addComments = ({ comments }) => {
           </li>`
     ), '');
     commentsList.innerHTML = getCommentsList;
+    const commentsBox = document.querySelectorAll('.social__comment');
+    for (let i = 5; i < commentsBox.length; i++) {
+      commentsBox[i].classList.add('hidden');
+    }
   }
+};
+
+const onShowMoreButtonClick = () => {
+  const hiddenComments = document.querySelectorAll('.social__comment.hidden');
+  const hiddenCommentsList = hiddenComments.length;
+  for (let i = 0; i < hiddenCommentsList; i++) {
+    hiddenComments[i].classList.remove('hidden');
+    uploadCommentsButton.classList.add('hidden');
+  }
+  loadedComments.textContent = +loadedComments.textContent + hiddenCommentsList;
 };
 
 const updateBigPicture = (clickedElement) => {
@@ -31,6 +46,14 @@ const updateBigPicture = (clickedElement) => {
   popup.querySelector('.likes-count').textContent = clickedElement.likes;
   popup.querySelector('.social__caption').textContent = clickedElement.description;
   popup.querySelector('.comments-count').textContent = clickedElement.comments.length;
+  if (clickedElement.comments.length <= 5) {
+    loadedComments.textContent = clickedElement.comments.length;
+    uploadCommentsButton.classList.add('hidden');
+  } else {
+    loadedComments.textContent = 5;
+    uploadCommentsButton.classList.remove('hidden');
+    uploadCommentsButton.addEventListener('click', onShowMoreButtonClick);
+  }
   addComments(clickedElement);
 };
 
@@ -40,12 +63,12 @@ const closeModal = () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
-const onPopupEscKeydown = (evt) => {
+function onPopupEscKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeModal();
   }
-};
+}
 
 function attachClickHandler(preview) {
   preview.addEventListener('click', () => {
@@ -54,8 +77,6 @@ function attachClickHandler(preview) {
     updateBigPicture(dataObject);
     document.body.classList.add('modal-open');
     popup.classList.remove('hidden');
-    popup.querySelector('.social__comment-count').classList.add('hidden');
-    popup.querySelector('.comments-loader').classList.add('hidden');
     document.addEventListener('keydown', onPopupEscKeydown);
   });
 }

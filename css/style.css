@@ -670,6 +670,7 @@ main {
 }
 
 .text__hashtags {
+  position: relative;
   width: 450px;
 
   margin: 0 auto;
@@ -681,6 +682,16 @@ main {
   color: #000000;
 
   border-radius: 5px;
+}
+
+.form__error {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.comments__field {
+  border: none;
 }
 
 .text__description {

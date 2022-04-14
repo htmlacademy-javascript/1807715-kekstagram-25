@@ -4,7 +4,7 @@ const MINIMUM_LIKES = 15;
 const MAXIMUM_LIKES = 200;
 const MAXIMUM_ID = 300;
 const MAXIMUM_AVATAR = 6;
-const MAXIMUM_ELEMENTS = 5;
+const MAXIMUM_ELEMENTS = 10;
 const SIMILAR_PHOTO_DESCRIPTION = 25;
 const NAMES = [
   'Tom',
