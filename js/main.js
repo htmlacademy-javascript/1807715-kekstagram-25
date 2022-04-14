@@ -4,6 +4,7 @@ import {attachClickHandler} from './big-photo.js';
 import './form.js';
 import './validation.js';
 import './photo-upload.js';
+import './scale.js';
 
 const similarListPictures = document.querySelector('.pictures');
 const similarListFragment = document.createDocumentFragment();
