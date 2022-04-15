@@ -7,8 +7,6 @@ const scaleValue = document.querySelector('.scale__control--value');
 const smallerScale = document.querySelector('.scale__control--smaller');
 const biggerScale = document.querySelector('.scale__control--bigger');
 
-scaleValue.value = '100%';
-
 biggerScale.addEventListener('click', () => {
   let scale = parseInt(scaleValue.value, 10) + STEP;
   if(scale >= MAX_VALUE) {
@@ -26,8 +24,13 @@ smallerScale.addEventListener('click', () => {
   if(scale <= MIN_VALUE) {
     scale = MIN_VALUE;
   }
-
   scaleValue.value = `${ scale }%`;
   preview.style.transform = `scale(${  scale / 100  })`;
 });
 
+function resetImgValues () {
+  preview.removeAttribute('class');
+  preview.removeAttribute('style');
+}
+
+export {scaleValue, resetImgValues};
