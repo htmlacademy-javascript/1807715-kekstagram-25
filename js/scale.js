@@ -9,7 +9,7 @@ const biggerScale = document.querySelector('.scale__control--bigger');
 
 biggerScale.addEventListener('click', () => {
   let scale = parseInt(scaleValue.value, 10) + STEP;
-  if(scale >= MAX_VALUE) {
+  if (scale >= MAX_VALUE) {
     scale = MAX_VALUE;
   }
   /*При изменении значения поля .scale__control--value изображению внутри
@@ -21,7 +21,7 @@ biggerScale.addEventListener('click', () => {
 
 smallerScale.addEventListener('click', () => {
   let scale = parseInt(scaleValue.value, 10) - STEP;
-  if(scale <= MIN_VALUE) {
+  if (scale <= MIN_VALUE) {
     scale = MIN_VALUE;
   }
   scaleValue.value = `${ scale }%`;

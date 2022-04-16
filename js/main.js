@@ -5,6 +5,7 @@ import './form.js';
 import './validation.js';
 import './photo-upload.js';
 import './scale.js';
+import './effects.js';
 
 const similarListPictures = document.querySelector('.pictures');
 const similarListFragment = document.createDocumentFragment();
