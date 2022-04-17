@@ -98,11 +98,7 @@ noUiSlider.create(slider, {
 
 const addEffects = (value) => {
   imgUpload.className = '';
-  slider.setAttribute('disabled', true);
-  if (value !== effectNone) {
-    imgUpload.classList.toggle(`effects__preview--${value}`, true);
-    slider.removeAttribute('disabled');
-  }
+  imgUpload.classList.toggle(`effects__preview--${value}`, (value !== effectNone));
 };
 
 addEffects(effectNone);
@@ -113,37 +109,44 @@ const changeEffectLevel = (type, value) => {
   let currentEffect;
   switch (type) {
     case effectNone:
-      currentEffect = imgUpload.style.filter = 'none';
-      break;
-    case effectMarvin:
-      currentEffect = imgUpload.style.filter = `invert(${value}%)`;
-      break;
-    case effectPhobos:
-      currentEffect = imgUpload.style.filter = `blur(${value}px)`;
+      slider.setAttribute('disabled', true);
+      currentEffect = 'none';
       break;
     case effectChrome:
-      currentEffect = imgUpload.style.filter = `grayscale(${value})`;
+      slider.removeAttribute('disabled');
+      currentEffect = `grayscale(${value})`;
+      break;
+    case effectMarvin:
+      slider.removeAttribute('disabled');
+      currentEffect = `invert(${value}%)`;
+      break;
+    case effectPhobos:
+      slider.removeAttribute('disabled');
+      currentEffect = `blur(${value}px)`;
       break;
     case effectSepia:
-      currentEffect = imgUpload.style.filter = `sepia(${value})`;
+      slider.removeAttribute('disabled');
+      currentEffect = `sepia(${value})`;
       break;
     case effectHeat:
-      currentEffect = imgUpload.style.filter = `brightness(${value})`;
+      slider.removeAttribute('disabled');
+      currentEffect = `brightness(${value})`;
       break;
   }
-  return currentEffect;
+  imgUpload.style.filter = currentEffect;
 };
+
 
 slider.noUiSlider.on('update', () => {
   effectsValue.value = slider.noUiSlider.get();
   changeEffectLevel(currentEffectType, effectsValue.value);
 });
 
-for(let i = 0; i < effectInputs.length; i++) {
-  effectInputs[i].addEventListener('change', (evt) => {
+effectInputs.forEach((el) => {
+  el.addEventListener('change', (evt) => {
     const value = evt.target.value;
     currentEffectType = value;
     slider.noUiSlider.updateOptions(effectsOptionsList[value]);
     addEffects(value);
   });
-}
+});
