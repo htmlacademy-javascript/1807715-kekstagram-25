@@ -98,8 +98,10 @@ noUiSlider.create(slider, {
 
 const addEffects = (value) => {
   imgUpload.className = '';
+  slider.setAttribute('disabled', true);
   if (value !== effectNone) {
-    imgUpload.classList.add(`effects__preview--${value}`);
+    imgUpload.classList.toggle(`effects__preview--${value}`, true);
+    slider.removeAttribute('disabled');
   }
 };
 
@@ -108,26 +110,28 @@ addEffects(effectNone);
 //измененит уровень интенсивности эффекта
 
 const changeEffectLevel = (type, value) => {
+  let currentEffect;
   switch (type) {
     case effectNone:
-      imgUpload.style.filter = 'none';
+      currentEffect = imgUpload.style.filter = 'none';
       break;
     case effectMarvin:
-      imgUpload.style.filter = `invert(${value}%)`;
+      currentEffect = imgUpload.style.filter = `invert(${value}%)`;
       break;
     case effectPhobos:
-      imgUpload.style.filter = `blur(${value}px)`;
+      currentEffect = imgUpload.style.filter = `blur(${value}px)`;
       break;
     case effectChrome:
-      imgUpload.style.filter = `grayscale(${value})`;
+      currentEffect = imgUpload.style.filter = `grayscale(${value})`;
       break;
     case effectSepia:
-      imgUpload.style.filter = `sepia(${value})`;
+      currentEffect = imgUpload.style.filter = `sepia(${value})`;
       break;
     case effectHeat:
-      imgUpload.style.filter = `brightness(${value})`;
+      currentEffect = imgUpload.style.filter = `brightness(${value})`;
       break;
   }
+  return currentEffect;
 };
 
 slider.noUiSlider.on('update', () => {
@@ -137,31 +141,9 @@ slider.noUiSlider.on('update', () => {
 
 for(let i = 0; i < effectInputs.length; i++) {
   effectInputs[i].addEventListener('change', (evt) => {
-    if (evt.target.value === effectChrome) {
-      currentEffectType = effectChrome;
-      slider.noUiSlider.updateOptions(effectsOptionsList.chrome);
-      addEffects(effectChrome);
-    } else if (evt.target.value === effectMarvin) {
-      currentEffectType = effectMarvin;
-      slider.noUiSlider.updateOptions(effectsOptionsList.marvin);
-      addEffects(effectMarvin);
-    } else if (evt.target.value === effectPhobos) {
-      currentEffectType = effectPhobos;
-      slider.noUiSlider.updateOptions(effectsOptionsList.phobos);
-      addEffects(effectPhobos);
-    } else if (evt.target.value === effectSepia) {
-      currentEffectType = effectSepia;
-      slider.noUiSlider.updateOptions(effectsOptionsList.sepia);
-      addEffects(effectSepia);
-    } else if (evt.target.value === effectHeat) {
-      currentEffectType = effectHeat;
-      slider.noUiSlider.updateOptions(effectsOptionsList.heat);
-      addEffects(effectHeat);
-    } else if (evt.target.value === effectNone) {
-      currentEffectType = effectNone;
-      slider.noUiSlider.updateOptions(effectsOptionsList.none);
-      addEffects(effectNone);
-    }
+    const value = evt.target.value;
+    currentEffectType = value;
+    slider.noUiSlider.updateOptions(effectsOptionsList[value]);
+    addEffects(value);
   });
 }
-
