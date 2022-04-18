@@ -12,9 +12,6 @@ biggerScale.addEventListener('click', () => {
   if (scale >= MAX_VALUE) {
     scale = MAX_VALUE;
   }
-  /*При изменении значения поля .scale__control--value изображению внутри
-  .img-upload__preview должен добавляться соответствующий стиль CSS,
-  который с помощью трансформации scale задаёт масштаб.*/
   scaleValue.value = `${ scale }%`;
   preview.style.transform = `scale(${  scale / 100  })`;//изменит масштаб.
 });

@@ -1,11 +1,11 @@
 import './photo.js';
-import {similarPhotoDescription} from './data.js';
-import {isEscapeKey} from './util.js';
 
 const popup = document.querySelector('.big-picture');
 const closePopup = document.querySelector('.big-picture__cancel');
 const loadedComments = document.querySelector('.comments-loaded');
 const uploadCommentsButton = document.querySelector('.comments-loader');
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const addComments = ({ comments }) => {
   const commentsList = document.querySelector('.social__comments');
@@ -70,10 +70,10 @@ function onPopupEscKeydown (evt) {
   }
 }
 
-function attachClickHandler(preview) {
+function attachClickHandler(preview, photos) {
   preview.addEventListener('click', () => {
     const getObject = preview.querySelector('img').getAttribute('src');
-    const dataObject = similarPhotoDescription.find((o) => o.url === getObject);
+    const dataObject = photos.find((o) => o.url === getObject);
     updateBigPicture(dataObject);
     document.body.classList.add('modal-open');
     popup.classList.remove('hidden');
@@ -87,4 +87,4 @@ closePopup.addEventListener('click', () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 });
 
-export {attachClickHandler};
+export {isEscapeKey, onPopupEscKeydown, attachClickHandler};

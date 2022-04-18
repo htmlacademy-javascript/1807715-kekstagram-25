@@ -1,3 +1,7 @@
+import {debounce} from './debounce.js';
+
+const RERENDER_DELAY = 500;
+
 const MIN_VALUE = 0;
 const MAX_VALUE = 100;
 const START_VALUE = 100;

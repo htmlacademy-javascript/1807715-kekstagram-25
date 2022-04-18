@@ -1,16 +1,15 @@
-import {similarPhotoDescription} from './data.js';
-import {createSimilarPicture} from './photo.js';
 import {attachClickHandler} from './big-photo.js';
+import {renderPhotos} from './photo.js';
 import './form.js';
-import './validation.js';
+import {setUserFormSubmit, showSuccessPopup, showErrorPopup} from './validation.js';
 import './photo-upload.js';
 import './scale.js';
 import './effects.js';
+import {getData} from './fetch.js';
 
-const similarListPictures = document.querySelector('.pictures');
-const similarListFragment = document.createDocumentFragment();
+getData((photos) => {
+  renderPhotos(photos);
+  document.querySelectorAll('.picture').forEach((preview) => attachClickHandler(preview, photos));
+});
 
-similarPhotoDescription.forEach((similarPicture) => similarListFragment.append(createSimilarPicture(similarPicture)));
-similarListPictures.append(similarListFragment);
-
-document.querySelectorAll('.picture').forEach((preview) => attachClickHandler(preview));
+setUserFormSubmit(showSuccessPopup, showErrorPopup);
