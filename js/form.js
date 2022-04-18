@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {form, pristine} from './validation.js';
+import {scaleValue, resetImgValues} from './scale.js';
 
 const uploadPhotoForm = document.querySelector('#upload-file');
 const openForm = document.querySelector('.img-upload__overlay');
@@ -9,6 +10,7 @@ const clearForm = () => {
   uploadPhotoForm.value = form.value = '';
   pristine.reset();
   form.reset();
+  resetImgValues();
 };
 
 const onFormKeydown = (evt) => {
@@ -19,6 +21,7 @@ const onFormKeydown = (evt) => {
 };
 
 function openFormModal () {
+  scaleValue.value = '100%';
   document.body.classList.add('modal-open');
   openForm.classList.remove('hidden');
   document.addEventListener('keydown', onFormKeydown);
