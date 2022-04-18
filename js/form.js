@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import {isEscapeKey} from './big-photo.js';
 import {form, pristine} from './validation.js';
 import {scaleValue, resetImgValues} from './scale.js';
 
@@ -41,3 +41,5 @@ uploadPhotoForm.addEventListener('change', () => {
 closeForm.addEventListener('click', () => {
   closeFormModal();
 });
+
+export {closeFormModal};

@@ -1,8 +1,11 @@
-import {isEscapeKey} from './util.js';
+import {isEscapeKey, onPopupEscKeydown} from './big-photo.js';
+import {sendData} from './fetch.js';
+import {closeFormModal} from './form.js';
 
 const form = document.querySelector('.img-upload__form');
 const hashtags = document.querySelector('.text__hashtags');
 const commentsField = document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
 const MIN_LENGTH = 2;
 const MAX_HASHTAGS = 5;
 const MAX_LENGTH = 20;
@@ -13,6 +16,16 @@ const pristine = new Pristine(form, {
   errorTextParent: 'img-upload__text',
   errorTextClass: 'form__error',
 });
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохраняю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Сохранить';
+};
 
 let message = '';
 
@@ -75,15 +88,53 @@ const onFocusKeydown = (evt) => {
   }
 };
 
+const onDocumentClick = () => {
+  document.querySelector('.popup').remove();
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('click', onDocumentClick);
+};
+
 hashtags.addEventListener('keydown', onFocusKeydown);
 commentsField.addEventListener('keydown', onFocusKeydown);
 
-form.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
-  }
-  return isValid;
-});
+const showPopup = () => {
+  document.body.append(message);
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onPopupEscKeydown);
+};
 
-export {form, pristine};
+const showSuccessPopup = () => {
+  message = document.querySelector('#success').content.cloneNode(true);
+  showPopup();
+};
+
+const showErrorPopup = () => {
+  message = document.querySelector('#error').content.cloneNode(true);
+  showPopup();
+};
+
+const setUserFormSubmit = (onSuccess, onFail) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (!isValid) {
+      evt.preventDefault();
+    }
+    blockSubmitButton();
+    sendData(
+      () => {
+        closeFormModal();
+        onSuccess();
+        unblockSubmitButton();
+      },
+      () => {
+        closeFormModal();
+        onFail();
+        unblockSubmitButton();
+      },
+      new FormData(evt.target),
+    );
+  });
+};
+
+export {form, pristine, setUserFormSubmit, showSuccessPopup, showErrorPopup};
